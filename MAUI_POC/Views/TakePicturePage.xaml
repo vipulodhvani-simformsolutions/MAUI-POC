@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:MAUI_POC.ViewModels"
+             xmlns:toolKit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:DataType="viewmodel:TakePictureViewModel"
+             x:Class="MAUI_POC.Views.TakePicturePage"
+             Title="Photo/Video">
+    <Grid RowDefinitions=".1*,*" ColumnDefinitions="*">
+        <Grid Grid.Row="0" ColumnDefinitions=".1*,.1*,.1*" Margin="12">
+            <Label Grid.Column="1" FontSize="18" FontAttributes="Bold" HorizontalTextAlignment="Center" Text="Camara" VerticalOptions="Center" />
+        </Grid>
+        <Grid Grid.Row="1" ColumnDefinitions="*">
+            <Grid RowDefinitions=".1*,*,.1*" >
+                <Grid ColumnDefinitions="*,*,*">
+                    <Button Text="Take Photo" Command="{Binding TakePicCommand}" WidthRequest="140" Grid.Row="0" Grid.Column="0"/>
+                    <Button Text="Pick Photo" Command="{Binding PickPhotoCommand}" WidthRequest="140" Grid.Row="0" Grid.Column="1"/>
+                    <Button Text="Record Video" Command="{Binding RecordVideoCommand}" WidthRequest="140" Grid.Row="0" Grid.Column="2"/>
+                </Grid>
+                <Image Grid.Row="1" IsVisible="{Binding ShowImageControl}" Source="{Binding ImageSrc}"></Image>
+                <toolKit:MediaElement Grid.Row="1" ShouldAutoPlay="False" Source="{Binding VideoPath}" IsVisible="{Binding ShowMediaElement}"/>
+                <Grid Grid.Row="2" ColumnDefinitions="*,*">
+                    <Label Grid.Column="0">
+                        <Label.Text>
+                            <MultiBinding StringFormat="Location: {0}, {1}">
+                                <Binding Path="Latitude" />
+                                <Binding Path="Longitude" />
+                            </MultiBinding>
+                        </Label.Text>
+                    </Label>
+
+                    <Button Grid.Column="1" IsVisible="{Binding ShowSaveBtn}" Text="{Binding SaveBtnTxt}" Command="{Binding SaveFileCommand}"/>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</ContentPage>

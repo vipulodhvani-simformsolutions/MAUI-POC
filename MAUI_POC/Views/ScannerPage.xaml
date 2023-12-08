@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cv="clr-namespace:Camera.MAUI;assembly=Camera.MAUI"
+             xmlns:viewmodel="clr-namespace:MAUI_POC.ViewModels"
+             x:DataType="viewmodel:ScannerViewModel"
+             x:Class="MAUI_POC.Views.ScannerPage"
+             Title="ScannerPage">
+    <Grid RowDefinitions=".1*,.5*,*" ColumnDefinitions="*">
+        <Label Grid.Row="0" FontSize="18" FontAttributes="Bold" Text="Scanner" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" />
+        <cv:CameraView Grid.Row="1" HorizontalOptions="FillAndExpand"
+                       x:Name="cameraView" 
+                       WidthRequest="450" 
+                       HeightRequest="200" 
+                       CamerasLoaded="cameraView_CamerasLoaded" 
+                       BarCodeDetectionEnabled="True" 
+                       BarcodeDetected="cameraView_BarcodeDetected" 
+                       Margin="0,0,0,0"/>
+        <Grid Grid.Row="2" RowDefinitions="*" ColumnDefinitions="*">
+            <StackLayout Grid.Row="0" Margin="5,1,1,5">
+                <Label FontAttributes="Bold" Text="{Binding BarcodeFormat, StringFormat='Scanned: {0}'}" FontSize="Medium"/>
+                <Label FontAttributes="Bold" Margin="0,0,0,50" Text="{Binding BarcodeResult, StringFormat='Result: {0}'}" FontSize="Medium"/>
+                <Button  Command="{Binding CopyResultCommand}" Text="Copy" Margin="5"/>
+                <Button  BackgroundColor="Red" Command="{Binding ClearedResultCommand}" Text="Clear" Margin="5"/>
+            </StackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>

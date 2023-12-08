@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="MAUI_POC.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MAUI_POC"
+    xmlns:views="clr-namespace:MAUI_POC.Views"
+    Shell.FlyoutBehavior="Disabled"
+    Shell.NavBarIsVisible="False">
+
+    <TabBar>
+        <Tab Title="Home" Icon="house_door_fill.svg">
+            <ShellContent
+                Icon="house_door_fill.svg"
+                Title="Home"
+                ContentTemplate="{DataTemplate views:HomePage}"
+                Route="HoemPage" /> 
+        </Tab>
+
+        <Tab Title="ToDo" Icon="list_check_solid.svg">
+            <ShellContent
+                Title="Tasks"
+                ContentTemplate="{DataTemplate views:TodoTaskListPage}"
+                Route="TodoTaskListPage" /> 
+        </Tab>
+        <Tab Title="Scan" Icon="qrcode_solid.svg">
+            <ShellContent
+                Title="Scan"
+                ContentTemplate="{DataTemplate views:ScannerPage}"
+                Route="ScannerPage" /> 
+        </Tab>
+        <Tab Title="Camera" Icon="camera_solid.svg">
+            <ShellContent
+                Title="Camera"
+                ContentTemplate="{DataTemplate views:TakePicturePage}"
+                Route="TakePicturePage" /> 
+        </Tab>
+
+        <!--<Tab Title="Settings" Icon="gear_fill.svg">
+            <ShellContent
+                Icon="house_door_fill.svg"
+                Title="Settings"
+                ContentTemplate="{DataTemplate views:SettingPage}"
+                Route="SettingPage" />
+        </Tab>-->
+    </TabBar>
+    <ShellContent
+        Title="TaskAddUpdatePage"
+        ContentTemplate="{DataTemplate views:TaskAddUpdatePage}"
+        Route="TaskAddUpdatePage"/> 
+    
+    <ShellContent
+        Title="TaskDetailPage"
+        ContentTemplate="{DataTemplate views:TaskDetailPage}"
+        Route="TaskDetailPage"/> 
+    
+</Shell>

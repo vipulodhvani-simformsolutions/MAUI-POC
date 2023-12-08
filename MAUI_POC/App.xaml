@@ -1,0 +1,21 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MAUI_POC"
+             xmlns:converters="clr-namespace:MAUI_POC.Converters"
+             x:Class="MAUI_POC.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <converters:HasCountConverter x:Key="HasCountConverter" />
+            <converters:DoesNotHaveCountConverter x:Key="DoesNotHaveCountConverter" />
+            <converters:TaskStatusIcon x:Key="TaskStatusIcon" />
+            <converters:StringTruncateConverter x:Key="StringTruncateConverter" />
+            <converters:EnumDisplayNameConverter x:Key="EnumDisplayNameConverter" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

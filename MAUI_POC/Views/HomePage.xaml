@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:MAUI_POC.ViewModels"
+             x:DataType="viewmodel:DashboardViewModel"
+             x:Class="MAUI_POC.Views.HomePage"
+             Title="Dashboard">
+    <StackLayout>
+
+        <Label Text="Task Stats" Padding="10" FontSize="Title" HorizontalOptions="CenterAndExpand" FontAttributes="Bold" TextColor="{x:StaticResource Tertiary}" />
+
+        <Frame BackgroundColor="{x:StaticResource Primary}" Margin="10" CornerRadius="5" BorderColor="{x:StaticResource Primary}">
+            <StackLayout Padding="20">
+                <Label TextColor="White" Text="Open" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" />
+                <Label TextColor="White" Text="{Binding OpenTask}" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" />
+            </StackLayout>
+        </Frame>
+
+        <Frame Margin="10" CornerRadius="5" BorderColor="Orange" BackgroundColor="Orange">
+            <StackLayout Padding="20">
+                <Label TextColor="White" Text="In-Progress" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" />
+                <Label TextColor="White" Text="{Binding InProhressTask}" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" />
+            </StackLayout>
+        </Frame>
+
+        <Frame BackgroundColor="Green" Margin="10" CornerRadius="5" BorderColor="Green">
+            <StackLayout Padding="20">
+                <Label TextColor="White" Text="Completed" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" />
+                <Label TextColor="White" Text="{Binding CompletedTask}" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" />
+            </StackLayout>
+        </Frame>
+
+        <Button CornerRadius="25" Text="Go to Task list" Command="{Binding GotoTaskListCommand}" HorizontalOptions="CenterAndExpand" VerticalOptions="Center"/>
+    </StackLayout>
+    
+</ContentPage>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:MAUI_POC.ViewModels"
+             xmlns:model="clr-namespace:MAUI_POC.Models;assembly=MAUI_POC.Models"
+             xmlns:helper="clr-namespace:MAUI_POC.Helpers"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:DataType="viewmodel:TodoTaskListViewModel"
+             x:Class="MAUI_POC.Views.TodoTaskListPage">
+    <Grid RowDefinitions=".1*, *">
+        <Grid ColumnDefinitions="*,*,*,.3*" Margin="12">
+            <!--<ImageButton HeightRequest="25" WidthRequest="20" HorizontalOptions="Start" VerticalOptions="Center" Clicked="Button_Clicked_home">
+                <ImageButton.Source>
+                    <FontImageSource FontFamily="FAS" Glyph="{x:Static helper:FontAwesomeFreeSolid400Helper.HouseChimney}" Size="20" Color="{StaticResource Gray600}"></FontImageSource>
+                </ImageButton.Source>
+            </ImageButton>-->
+            <Label 
+                Grid.Column="1"
+                FontFamily="RobotoR"
+                FontSize="18"
+                HorizontalTextAlignment="Center"
+                Text="Task List"
+                VerticalOptions="Center" />
+            <ImageButton Grid.Column="3" Clicked="Button_Clicked_1" Margin="0,0,2,0" Padding="0,0,0,0" CornerRadius="0" Source="plus_solid.svg"  HeightRequest="24" WidthRequest="24" />
+            <!--<ImageButton Grid.Column="3" HeightRequest="25" WidthRequest="20" HorizontalOptions="End" VerticalOptions="Center" Clicked="Button_Clicked_1">
+                <ImageButton.Source>
+                    <FontImageSource FontFamily="FAS" Glyph="{x:Static helper:FontAwesomeFreeSolid400Helper.Plus}" Size="20" Color="{StaticResource Gray600}"></FontImageSource>
+                </ImageButton.Source>
+            </ImageButton>-->
+        </Grid>
+        <RefreshView Grid.Row="1" Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefresh}">
+            <CollectionView Margin="5" x:Name="todoTaskCollectionView"
+                        ItemsSource="{Binding TodoTasks}"
+                        IsVisible="{Binding TodoTasks.Count,Converter={StaticResource HasCountConverter}}"
+                        ItemsUpdatingScrollMode="KeepLastItemInView"
+                        Scrolled="todoTaskCollectionView_Scrolled"
+                            SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:TodoTask">
+                        <ContentView BackgroundColor="{x:StaticResource Secondary}">
+                            <SwipeView>
+                                <SwipeView.RightItems>
+                                    <SwipeItems Mode="Reveal">
+                                        <SwipeItemView>
+                                            <Frame WidthRequest="60" VerticalOptions="Fill" HorizontalOptions="Fill" BorderColor="Transparent" CornerRadius="0" BackgroundColor="{x:StaticResource White}">
+                                                <ImageButton Source="trash_solid.svg" CommandParameter="{Binding Id}" Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TodoTaskListViewModel}}, Path=DeleteTaskCommand}">
+                                                    <!--<ImageButton.Source>
+                                                        <FontImageSource FontFamily="FAS" Glyph="{x:Static helper:FontAwesomeFreeSolid400Helper.Trash}" Size="10" Color="{x:StaticResource Tertiary}"></FontImageSource>
+                                                    </ImageButton.Source>-->
+                                                </ImageButton>
+                                            </Frame>
+                                        </SwipeItemView>
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
+                                <SwipeView.LeftItems>
+                                    <SwipeItems Mode="Reveal">
+                                        <SwipeItemView>
+                                            <Frame WidthRequest="60" VerticalOptions="Fill" HorizontalOptions="Fill" BorderColor="Transparent" CornerRadius="0" BackgroundColor="{x:StaticResource White}">
+                                                <ImageButton Source="pen_solid.svg" CommandParameter="{Binding Id}" Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TodoTaskListViewModel}}, Path=EditTaskCommand}">
+                                                    <!--<ImageButton.Source>
+                                                        <FontImageSource FontFamily="FAS" Glyph="{x:Static helper:FontAwesomeFreeSolid400Helper.FilePen}" Size="10" Color="{x:StaticResource Tertiary}"></FontImageSource>
+                                                    </ImageButton.Source>-->
+                                                </ImageButton>
+                                            </Frame>
+                                        </SwipeItemView>
+                                        <SwipeItemView>
+                                            <Frame WidthRequest="60" VerticalOptions="Fill" HorizontalOptions="Fill" BorderColor="Transparent" CornerRadius="0" BackgroundColor="{x:StaticResource White}">
+                                                <ImageButton Source="qrcode_solid.svg" CommandParameter="{Binding .}" Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TodoTaskListViewModel}}, Path=ViewTaskCommand}">
+                                                    <!--<ImageButton.Source>
+                <FontImageSource FontFamily="FAS" Glyph="{x:Static helper:FontAwesomeFreeSolid400Helper.FilePen}" Size="10" Color="{x:StaticResource Tertiary}"></FontImageSource>
+            </ImageButton.Source>-->
+                                                </ImageButton>
+                                            </Frame>
+                                        </SwipeItemView>
+                                    </SwipeItems>
+                                </SwipeView.LeftItems>
+                                <Grid Padding="15">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="list_ul_solid.svg" HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="60" HeightRequest="60" Margin="0,0,10,0">
+                                        <Image.Behaviors>
+                                            <toolkit:IconTintColorBehavior TintColor="{x:StaticResource Primary}"/>
+                                        </Image.Behaviors>
+                                    </Image>
+                                    <!--<Image Source="{Binding Status, Converter={ StaticResource TaskStatusIcon }}" HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="60" HeightRequest="60" Margin="0,0,10,0"/>-->
+
+                                    <Grid Grid.Column="1" Grid.Row="0" RowDefinitions="*,*,*" ColumnDefinitions="*">
+                                        <Label Grid.Row="0" Grid.Column="0" Text="{Binding Title, Converter={StaticResource StringTruncateConverter}, ConverterParameter=30}" FontAttributes="Bold" FontSize="18" />
+                                        <Label Grid.Row="1" Grid.Column="0" Text="{Binding Description, Converter={StaticResource StringTruncateConverter}, ConverterParameter=40}" FontAttributes="Italic" FontSize="16" />
+                                        <Grid Grid.Row="2" RowDefinitions="*" ColumnDefinitions="*">
+                                            <Label TextColor="{x:StaticResource Primary}" HorizontalOptions="Start" Grid.Row="0" Grid.Column="0" WidthRequest="200" Text="{Binding Status, StringFormat='Status: {0}'}" FontAttributes="Italic" FontSize="12" />
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </SwipeView>
+                        </ContentView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+        <Grid Grid.Row="1" IsVisible="{Binding TodoTasks.Count, Converter={StaticResource DoesNotHaveCountConverter}}">
+            <Label HorizontalOptions="Center" Text="Add new task" VerticalOptions="Center" TextColor="{x:StaticResource Gray200}" />
+        </Grid>
+    </Grid>
+</ContentPage>

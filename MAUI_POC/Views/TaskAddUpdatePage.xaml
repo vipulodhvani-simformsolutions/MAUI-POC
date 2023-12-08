@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:MAUI_POC.ViewModels"
+             xmlns:helper="clr-namespace:MAUI_POC.Helpers"
+             xmlns:enum="clr-namespace:MAUI_POC.Models.Enums;assembly=MAUI_POC.Models"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:DataType="viewmodel:TaskAddUpdateViewModel"
+             x:Class="MAUI_POC.Views.TaskAddUpdatePage"
+             Title="TaskAddUpdatePage"
+             Shell.PresentationMode="Modal">
+
+    <Grid RowDefinitions=".1*, *" ColumnDefinitions="*">
+        <Grid ColumnDefinitions=".1*,*,.1*" Margin="12">
+            <ImageButton Command="{Binding BackCommand}" Margin="0,10,10,10" Padding="0,0,0,0" CornerRadius="0" Source="arrow_eft_long_solid.svg"  HeightRequest="24" WidthRequest="24" />
+
+            <!--<ImageButton HorizontalOptions="Start" VerticalOptions="Center" Command="{Binding BackCommand}">
+                <ImageButton.Source>
+                    <FontImageSource FontFamily="FAS" Glyph="{x:Static helper:FontAwesomeFreeSolid400Helper.ArrowLeft}" Size="20" Color="{StaticResource Gray600}"></FontImageSource>
+                </ImageButton.Source>
+            </ImageButton>-->
+            <Label  Grid.Column="1" FontSize="18" HorizontalTextAlignment="Center" Text="{Binding PageLeble}" VerticalOptions="Center" />
+        </Grid>
+        <Grid Grid.Row="1" RowDefinitions="Auto,Auto,Auto,Auto,Auto,*" Padding="15">
+            <Entry Text="{Binding Id}" IsVisible="false"/>
+
+            <Grid Grid.Row="0" RowDefinitions="*,*,*">
+                <Label Grid.Row="0" Text="Title" TextColor="Black"/>
+                <Frame Grid.Row="1" Padding="5" BorderColor="{x:StaticResource Gray300}" HasShadow="False">
+                    <Entry Margin="5,0,0,0" Placeholder="Title" Text="{Binding Title}" TextColor="Black" PlaceholderColor="Gray" BackgroundColor="Transparent" />
+                </Frame>
+                <Label Grid.Row="2" Text="{Binding ValidationMessageTitle}" TextColor="Red" />
+            </Grid>
+
+            <Grid Grid.Row="1" RowDefinitions="*,*,*">
+                <Label Grid.Row="0" Text="Description" TextColor="Black"/>
+                <Frame Grid.Row="1" Padding="5" BorderColor="{x:StaticResource Gray300}" HasShadow="False">
+                    <Editor x:Name="editor" Placeholder="Description" Text="{Binding Description}" TextColor="Black" PlaceholderColor="Gray" BackgroundColor="Transparent" HeightRequest="250" />
+                </Frame>
+                <Label Grid.Row="2" Text="{Binding ValidationMessageDescription}" TextColor="Red" />
+            </Grid>
+
+            <Grid Grid.Row="2" RowDefinitions="*,*">
+                <Label Grid.Row="0" Text="Status" TextColor="Black"/>
+                <Frame Grid.Row="1" Padding="5" BorderColor="{x:StaticResource Gray300}" HasShadow="False">
+                    <Picker Margin="5,0,0,0" Title="Selete Task Status" SelectedItem="{Binding Status, Mode=TwoWay}">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type enum:TodoTaskStatus}">
+                                <enum:TodoTaskStatus>Open</enum:TodoTaskStatus>
+                                <enum:TodoTaskStatus>InProgress</enum:TodoTaskStatus>
+                                <enum:TodoTaskStatus>Completed</enum:TodoTaskStatus>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                        <Picker.ItemDisplayBinding>
+                            <Binding Path="." Converter="{StaticResource EnumDisplayNameConverter}" />
+                        </Picker.ItemDisplayBinding>
+                    </Picker>
+                </Frame>
+            </Grid>
+            <Button Margin="0,15,0,0" Text="Submit" Grid.Row="3" Command="{Binding SubmitCommand}" HorizontalOptions="FillAndExpand" />
+        </Grid>
+    </Grid>
+
+</ContentPage>
