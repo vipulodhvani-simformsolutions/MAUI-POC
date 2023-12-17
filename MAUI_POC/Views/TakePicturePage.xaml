@@ -6,32 +6,48 @@
              x:DataType="viewmodel:TakePictureViewModel"
              x:Class="MAUI_POC.Views.TakePicturePage"
              Title="Photo/Video">
-    <Grid RowDefinitions=".1*,*" ColumnDefinitions="*">
-        <Grid Grid.Row="0" ColumnDefinitions=".1*,.1*,.1*" Margin="12">
-            <Label Grid.Column="1" FontSize="18" FontAttributes="Bold" HorizontalTextAlignment="Center" Text="Camara" VerticalOptions="Center" />
-        </Grid>
-        <Grid Grid.Row="1" ColumnDefinitions="*">
-            <Grid RowDefinitions=".1*,*,.1*" >
-                <Grid ColumnDefinitions="*,*,*">
-                    <Button Text="Take Photo" Command="{Binding TakePicCommand}" WidthRequest="140" Grid.Row="0" Grid.Column="0"/>
-                    <Button Text="Pick Photo" Command="{Binding PickPhotoCommand}" WidthRequest="140" Grid.Row="0" Grid.Column="1"/>
-                    <Button Text="Record Video" Command="{Binding RecordVideoCommand}" WidthRequest="140" Grid.Row="0" Grid.Column="2"/>
-                </Grid>
-                <Image Grid.Row="1" IsVisible="{Binding ShowImageControl}" Source="{Binding ImageSrc}"></Image>
-                <toolKit:MediaElement Grid.Row="1" ShouldAutoPlay="False" Source="{Binding VideoPath}" IsVisible="{Binding ShowMediaElement}"/>
-                <Grid Grid.Row="2" ColumnDefinitions="*,*">
-                    <Label Grid.Column="0">
-                        <Label.Text>
-                            <MultiBinding StringFormat="Location: {0}, {1}">
-                                <Binding Path="Latitude" />
-                                <Binding Path="Longitude" />
-                            </MultiBinding>
-                        </Label.Text>
-                    </Label>
+    <Grid RowDefinitions="Auto, Auto,*,Auto">
+        <Label Grid.Row="0" FontSize="18"
+               FontAttributes="Bold"
+               HorizontalTextAlignment="Center"
+               Text="Camera"
+               VerticalOptions="Center" 
+               Padding="8,8"/>
+        <HorizontalStackLayout Grid.Row="1" Spacing="2">
+            <Button Text="Take Photo" Command="{Binding TakePicCommand}" WidthRequest="120" CornerRadius="0"/>
+            <Button Text="Pick Photo" Command="{Binding PickPhotoCommand}" WidthRequest="120" CornerRadius="0"/>
+            <Button Text="Record Video" Command="{Binding RecordVideoCommand}" WidthRequest="120" CornerRadius="0"/>
+        </HorizontalStackLayout>
 
-                    <Button Grid.Column="1" IsVisible="{Binding ShowSaveBtn}" Text="{Binding SaveBtnTxt}" Command="{Binding SaveFileCommand}"/>
-                </Grid>
+        <Border Grid.Row="2"
+                StrokeShape="RoundRectangle"
+                StrokeThickness="0"
+                BackgroundColor="{x:StaticResource Secondary}"
+                Padding="2">
+            <Image IsVisible="{Binding ShowImageControl}"
+                   Source="{Binding ImageSrc}"
+                   HorizontalOptions="FillAndExpand"
+                   VerticalOptions="FillAndExpand"/>
+        </Border>
+
+        <toolKit:MediaElement Grid.Row="2" 
+                              ShouldAutoPlay="False"
+                              Source="{Binding VideoPath}" 
+                              IsVisible="{Binding ShowMediaElement}"/>
+        <StackLayout Grid.Row="3" Padding="5,5" BackgroundColor="{x:StaticResource Secondary}">
+            <Grid ColumnDefinitions="*,Auto">
+                <StackLayout Grid.Column="0">
+                    <Label Text="{Binding Latitude, StringFormat='Lat: {0}'}"/>
+                    <Label Text="{Binding Longitude, StringFormat='Long: {0}'}"/>
+                </StackLayout>
+                <Button Grid.Column="1"
+                        IsVisible="{Binding ShowSaveBtn}"
+                        Text="{Binding SaveBtnTxt}" 
+                        Command="{Binding SaveFileCommand}"
+                        CornerRadius="15"
+                        WidthRequest="150"
+                        HorizontalOptions="End"/>
             </Grid>
-        </Grid>
+        </StackLayout>
     </Grid>
 </ContentPage>
