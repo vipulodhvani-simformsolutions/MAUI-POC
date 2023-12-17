@@ -9,9 +9,9 @@ namespace MAUI_POC.Converters
             if (value is string text && parameter is string lengthParam && int.TryParse(lengthParam, out int maxLength))
             {
                 if (text.Length > maxLength)
-                    return text.Substring(0, maxLength) + "...";
+                    return text.Replace("\n", "").Substring(0, maxLength) + "...";
                 else
-                    return text;
+                    return text.Replace("\n", "");
             }
 
             return value;

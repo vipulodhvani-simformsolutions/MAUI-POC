@@ -66,7 +66,7 @@ namespace MAUI_POC.ViewModels
         [RelayCommand]
         async Task DeleteTask(int id)
         {
-            var isConfirm = await Shell.Current.DisplayAlert("Delete Task", "Are you sure want to delete this task?", "Yes", "Cancel");
+            var isConfirm = await Shell.Current.DisplayAlert("Delete", "Are you sure want to delete this task?", "Yes", "Cancel");
             if (isConfirm)
             {
                 CurrentPage = 0;
